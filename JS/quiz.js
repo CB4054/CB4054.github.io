@@ -146,7 +146,7 @@ next_question = () => {
   if (remaining_questions.length === 0 || question_number > TOTAL_QUESTIONS) {
     localStorage.setItem("last_score", user_score);
 
-    return window.location.assign("../html/quiz_end.html");
+    return window.location.assign("../quiz_end.html");
   }
   question_number++;
 
