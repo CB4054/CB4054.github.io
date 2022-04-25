@@ -104,29 +104,21 @@ let questions = [
 
 const question = document.querySelector("#question");
 const choices = Array.from(document.querySelectorAll(".choice_data"));
-let hint = document.querySelector("#hint");
-
+const hint = document.querySelector("#hint");
+const TOTAL_QUESTIONS = 10;
 let current_question = {};
-let accepting_answers = true;
+let answer_selected = true;
 let user_score = 0;
 let question_number = 0;
-let remaining_questions = [];
-const TOTAL_QUESTIONS = 10;
+let remaining_questions = [...questions];
 
-start_quiz = () => {
-  question_number = 0;
-  user_score = 0;
-  remaining_questions = [...questions];
-  next_question();
-};
-
-show_hint = (e) => {
+function show_hint(e) {
   hint.innerText = current_question.hint;
-};
+}
 
-//Code below commented out as timer is not functioning 100% correctly. Partial functionality has been acheived.
+// Code below commented out as timer is not functioning 100% correctly. Partial functionality has been acheived.
 // function start_clock() {
-//   var time_remaining = 5;
+//   var time_remaining = 10;
 //   var timer = setInterval(function start_countdown() {
 //     if (time_remaining == 0) {
 //       clearInterval(timer);
@@ -139,14 +131,14 @@ show_hint = (e) => {
 //   }, 1000);
 // }
 
-next_question = () => {
+function next_question() {
   // start_clock();
   hint.innerText = "Hint?";
 
   if (remaining_questions.length === 0 || question_number > TOTAL_QUESTIONS) {
     localStorage.setItem("last_score", user_score);
 
-    return window.location.assign("../quiz_end.html");
+    return window.location.assign("quiz_end.html");
   }
   question_number++;
 
@@ -164,14 +156,14 @@ next_question = () => {
   });
 
   remaining_questions.splice(question_index, 1);
-  accepting_answers = true;
-};
+  answer_selected = true;
+}
 
 choices.forEach((choice) => {
   choice.addEventListener("click", (e) => {
-    if (!accepting_answers) return;
+    if (!answer_selected) return;
 
-    accepting_answers = false;
+    answer_selected = false;
     const selected_choice = e.target;
     const selected_answer = selected_choice.dataset["number"];
 
@@ -183,4 +175,4 @@ choices.forEach((choice) => {
   });
 });
 
-start_quiz();
+next_question();

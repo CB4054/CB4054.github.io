@@ -8,7 +8,6 @@ leaderboard.innerHTML = high_scores
   .join("");
 
 function reset_scores() {
-  // Clear localStorage items
   localStorage.clear();
   window.location.reload();
 }
